@@ -1,9 +1,10 @@
 {
-  "name": "client",
+  "name": "mitotem",
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "next-dev": "next dev",
+    "dev": "npm run next-dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
@@ -16,6 +17,7 @@
   },
   "devDependencies": {
     "autoprefixer": "^10.0.1",
+    "concurrently": "^8.2.2",
     "eslint": "^8",
     "eslint-config-next": "14.0.4",
     "postcss": "^8",

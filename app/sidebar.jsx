@@ -1,14 +1,15 @@
+"use client";
 import { useState } from "react";
 import { Red_Hat_Mono } from "next/font/google";
-import { ChevronRightIcon, CheckIcon } from "@heroicons/react/24/solid";
+import { ChevronRightIcon } from "@heroicons/react/24/solid";
 import {
 	PaintBrushIcon,
 	CursorArrowRaysIcon,
 	MagnifyingGlassIcon,
 } from "@heroicons/react/20/solid";
+import Workspace from "@/app/workspace";
 
 const rhmono = Red_Hat_Mono({ subsets: ["latin"] });
-const files = ["5000X.TIFF", "6000X.TIFF", "7000X.TIFF"];
 
 function Heading({ name, isCollapsed, onClick }) {
 	return (
@@ -19,8 +20,8 @@ function Heading({ name, isCollapsed, onClick }) {
 			<span />
 			<span className="">{name}</span>
 			<ChevronRightIcon
-				className={`self-center h-4 w-4 inline transition ${
-					!isCollapsed && "rotate-90"
+				className={`self-center h-4 w-4 mr-1 inline transition ${
+					isCollapsed ? "" : "rotate-90"
 				}`}
 			/>
 		</div>
@@ -31,30 +32,14 @@ function SideItem({ name, children }) {
 	const [isCollapsed, setCollapsed] = useState(true);
 
 	return (
-		<div className="m-px">
+		<div className="mt-px">
 			<Heading
 				name={name}
 				isCollapsed={isCollapsed}
 				onClick={() => setCollapsed(!isCollapsed)}
 			/>
-			<div className={isCollapsed && "hidden"}>{children}</div>
+			<div className={isCollapsed ? "hidden" : ""}>{children}</div>
 		</div>
-	);
-}
-
-function Workspace() {
-	return (
-		<ul className={`${rhmono.className} text-sm text-slate-700 tracking-tight`}>
-			{files.map((f, index) => (
-				<li
-					key={index}
-					className="flex justify-between px-1 border-solid border-b border-slate-200"
-				>
-					<span>{f}</span>
-					<CheckIcon className="inline self-center w-3 h-3 text-green-600" />
-				</li>
-			))}
-		</ul>
 	);
 }
 
@@ -72,24 +57,40 @@ function Tools() {
 }
 
 function Output() {
-	const headers = ["#", "C", "A", "P"];
+	const cols = {
+		"#": { full: "rank", style: "w-8" },
+		c: { full: "centroid", style: "" },
+		a: { full: "area", style: "" },
+		p: { full: "perimeter", style: "" },
+	};
+
+	const ttStyle =
+		"absolute invisible group-hover:visible top-[-1px] left-0 bg-slate-50";
 
 	return (
 		<table
 			className={`${rhmono.className} w-full text-sm text-slate-700 tracking-tight`}
 		>
-			<tr className="border-b border-slate-300">
-				{headers.map((h, i) => (
-					<th className={`font-semibold ${!i && "w-8 "}`}>{h}</th>
-				))}
-			</tr>
+			<thead className="capitalize">
+				<tr className="border-b border-slate-300 [&>*]:font-medium">
+					{Object.keys(cols).map((h) => (
+						<th key={cols[h].full} className={cols[h].style}>
+							<span className="group relative">
+								{h}
+								<span className={ttStyle}>{cols[h].full}</span>
+							</span>
+						</th>
+					))}
+				</tr>
+			</thead>
+			<tbody></tbody>
 		</table>
 	);
 }
 
-export default function Sidebar() {
+export default function Sidebar({ children }) {
 	return (
-		<div className="flex flex-col">
+		<div className="lg:h-full lg:grow flex flex-col">
 			<SideItem name={"Workspace"}>
 				<Workspace />
 			</SideItem>
