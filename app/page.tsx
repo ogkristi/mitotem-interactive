@@ -4,16 +4,16 @@ import { DocumentArrowUpIcon } from "@heroicons/react/24/solid";
 import { upload } from "@/app/actions";
 
 export default function Upload() {
-	const formRef = useRef(null);
+	const formRef = useRef<HTMLFormElement | null>(null);
 	const [inDropZone, setInDropZone] = useState(false);
 
-	function handleDrop(e) {
+	function handleDrop(e: React.DragEvent<HTMLFormElement>) {
 		e.stopPropagation();
 		e.preventDefault();
 		setInDropZone(false);
 
-		formRef.current.set("files", e.dataTransfer.files);
-		formRef.current.submit();
+		formRef.current?.set("files", e.dataTransfer.files);
+		formRef.current?.submit();
 	}
 
 	function toggleInDropZone(e) {
@@ -52,7 +52,7 @@ export default function Upload() {
 					id="file"
 					name="file"
 					accept=".tif, .tiff"
-					onChange={() => formRef.current.submit()}
+					onChange={() => formRef.current?.submit()}
 					className="opacity-0"
 					multiple
 				/>

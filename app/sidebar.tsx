@@ -11,7 +11,7 @@ import Workspace from "@/app/workspace";
 
 const rhmono = Red_Hat_Mono({ subsets: ["latin"] });
 
-function Heading({ name, isCollapsed, onClick }) {
+function Heading({ name, isCollapsed, onClick }: { name: string, isCollapsed: boolean, onClick: React.MouseEventHandler}) {
 	return (
 		<div
 			onClick={onClick}
@@ -28,8 +28,8 @@ function Heading({ name, isCollapsed, onClick }) {
 	);
 }
 
-function SideItem({ name, children }) {
-	const [isCollapsed, setCollapsed] = useState(true);
+function SideItem({ name, children }: { name: string, children: React.ReactElement}) {
+	const [isCollapsed, setCollapsed] = useState<boolean>(true);
 
 	return (
 		<div className="mt-px">
@@ -58,14 +58,11 @@ function Tools() {
 
 function Output() {
 	const cols = {
-		"#": { full: "rank", style: "w-8" },
+		"#": { full: "count", style: "w-8" },
 		c: { full: "centroid", style: "" },
 		a: { full: "area", style: "" },
 		p: { full: "perimeter", style: "" },
 	};
-
-	const ttStyle =
-		"absolute invisible group-hover:visible top-[-1px] left-0 bg-slate-50";
 
 	return (
 		<table
@@ -77,7 +74,9 @@ function Output() {
 						<th key={cols[h].full} className={cols[h].style}>
 							<span className="group relative">
 								{h}
-								<span className={ttStyle}>{cols[h].full}</span>
+								<span className="absolute invisible group-hover:visible top-[-1px] left-0 bg-slate-50">
+									{cols[h].full}
+								</span>
 							</span>
 						</th>
 					))}
@@ -88,7 +87,7 @@ function Output() {
 	);
 }
 
-export default function Sidebar({ children }) {
+export default function Sidebar() {
 	return (
 		<div className="lg:h-full lg:grow flex flex-col">
 			<SideItem name={"Workspace"}>

@@ -4,8 +4,11 @@ from flask import Flask, request, send_file
 from werkzeug.utils import secure_filename
 
 UPLOAD_FOLDER = Path("api").absolute() / "upload"
-PUBLIC_FOLDER = Path("public").absolute()
-ALLOWED_SUFFIXES = {".tiff", ".tif", ".png"}
+PUBLIC_FOLDER = Path("public").absolute() / "upload"
+ALLOWED_SUFFIXES = {".tiff", ".tif"}
+
+UPLOAD_FOLDER.mkdir(parents=True, exist_ok=True)
+PUBLIC_FOLDER.mkdir(parents=True, exist_ok=True)
 
 app = Flask(__name__)
 app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
@@ -24,8 +27,8 @@ def get_workspace():
 
 @app.route("/api/upload", methods=["POST", "PUT"])
 def upload():
-    files = request.files.getlist("filelist")
-
+    files = request.files.getlist("file")
+    
     for file in files:
         dst = UPLOAD_FOLDER / secure_filename(file.filename)
 

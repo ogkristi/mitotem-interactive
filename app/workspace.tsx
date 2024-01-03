@@ -7,16 +7,19 @@ import { Red_Hat_Mono } from "next/font/google";
 
 const rhmono = Red_Hat_Mono({ subsets: ["latin"] });
 
-async function getWorkspace() {
-	return fetch("/api/workspace", { method: "GET" }).then((resp) => resp.json());
+interface Image {
+	name: string;
+	processed: boolean;
 }
 
 export default function Workspace() {
 	const path = usePathname();
-	const [images, setImages] = useState([]);
+	const [images, setImages] = useState<Image[]>([]);
 
 	useEffect(() => {
-		getWorkspace().then((data) => setImages(data));
+		fetch("/api/workspace", { method: "GET" })
+			.then((resp) => resp.json())
+			.then((data) => setImages(data));
 	}, []);
 
 	return (
