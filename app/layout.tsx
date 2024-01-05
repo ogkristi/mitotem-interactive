@@ -1,5 +1,5 @@
 import Sidebar from "@/app/sidebar";
-import type { Metadata } from 'next'
+import type { Metadata } from "next";
 import { Open_Sans } from "next/font/google";
 import "./globals.css";
 
@@ -10,7 +10,11 @@ export const metadata: Metadata = {
 	description: "",
 };
 
-export default function RootLayout({ children }: { children: React.ReactElement }) {
+export default function RootLayout({
+	children,
+}: {
+	children: React.ReactElement;
+}) {
 	return (
 		<html lang="en">
 			<body className={`w-screen h-screen bg-slate-100 ${open_sans.className}`}>

@@ -10,7 +10,7 @@ const nextConfig = {
                 : '/api/',
           },
         ]
-      },
+  },
 }
 
 module.exports = nextConfig

@@ -1,11 +1,12 @@
-import cv2 as cv
+import os
 from pathlib import Path
-from flask import Flask, request, send_file
+from flask import Flask, request
 from werkzeug.utils import secure_filename
+import cv2 as cv
 
 UPLOAD_FOLDER = Path("api").absolute() / "upload"
 PUBLIC_FOLDER = Path("public").absolute() / "upload"
-ALLOWED_SUFFIXES = {".tiff", ".tif"}
+ALLOWED_SUFFIXES = os.getenv("ACCEPT_SUFFIX")
 
 UPLOAD_FOLDER.mkdir(parents=True, exist_ok=True)
 PUBLIC_FOLDER.mkdir(parents=True, exist_ok=True)

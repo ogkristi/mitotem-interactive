@@ -10,6 +10,7 @@ packages = [{include = "mitotem_interactive"}]
 python = "^3.12"
 flask = "^3.0.0"
 opencv-python = "^4.8.1.78"
+python-dotenv = "^1.0.0"
 
 
 [build-system]

@@ -11,7 +11,15 @@ import Workspace from "@/app/workspace";
 
 const rhmono = Red_Hat_Mono({ subsets: ["latin"] });
 
-function Heading({ name, isCollapsed, onClick }: { name: string, isCollapsed: boolean, onClick: React.MouseEventHandler}) {
+function Heading({
+	name,
+	isCollapsed,
+	onClick,
+}: {
+	name: string;
+	isCollapsed: boolean;
+	onClick: React.MouseEventHandler;
+}) {
 	return (
 		<div
 			onClick={onClick}
@@ -28,7 +36,13 @@ function Heading({ name, isCollapsed, onClick }: { name: string, isCollapsed: bo
 	);
 }
 
-function SideItem({ name, children }: { name: string, children: React.ReactElement}) {
+function SideItem({
+	name,
+	children,
+}: {
+	name: string;
+	children: React.ReactElement;
+}) {
 	const [isCollapsed, setCollapsed] = useState<boolean>(true);
 
 	return (
@@ -89,7 +103,7 @@ function Output() {
 
 export default function Sidebar() {
 	return (
-		<div className="lg:h-full lg:grow flex flex-col">
+		<div className="lg:h-full lg:w-1/5 flex flex-col">
 			<SideItem name={"Workspace"}>
 				<Workspace />
 			</SideItem>
