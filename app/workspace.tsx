@@ -13,7 +13,7 @@ interface Image {
 }
 
 export default function Workspace() {
-	const path = usePathname();
+	const active = usePathname().slice(1);
 	const [images, setImages] = useState<Image[]>([]);
 
 	useEffect(() => {
@@ -25,10 +25,14 @@ export default function Workspace() {
 	return (
 		<ul className={`${rhmono.className} text-sm text-slate-700`}>
 			{images.map(({ name, processed }) => (
-				<Link key={name} href={`/${name}`}>
+				<Link
+					key={name}
+					href={`/${name}`}
+					className={name === active ? "active" : undefined}
+				>
 					<li
 						className={`flex justify-between px-1 border-solid border-b border-slate-200 hover:bg-slate-100 hover:cursor-pointer ${
-							name === path.slice(1) ? "bg-slate-100" : ""
+							name === active ? "bg-slate-100" : ""
 						}`}
 					>
 						<span className="truncate">{name}</span>

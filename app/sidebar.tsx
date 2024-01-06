@@ -8,6 +8,7 @@ import {
 	MagnifyingGlassIcon,
 } from "@heroicons/react/20/solid";
 import Workspace from "@/app/workspace";
+import { useKeyboardNavigation } from "@/app/hooks";
 
 const rhmono = Red_Hat_Mono({ subsets: ["latin"] });
 
@@ -43,10 +44,15 @@ function SideItem({
 	name: string;
 	children: React.ReactElement;
 }) {
+	const [sideItemRef, handleKeyboardNavigation] = useKeyboardNavigation();
 	const [isCollapsed, setCollapsed] = useState<boolean>(true);
 
 	return (
-		<div className="mt-px">
+		<div
+			className="mt-px"
+			ref={sideItemRef}
+			onKeyDown={handleKeyboardNavigation}
+		>
 			<Heading
 				name={name}
 				isCollapsed={isCollapsed}
