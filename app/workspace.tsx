@@ -1,7 +1,7 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, use } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { useParams } from "next/navigation";
 import { CheckIcon } from "@heroicons/react/24/solid";
 import { Red_Hat_Mono } from "next/font/google";
 
@@ -13,17 +13,17 @@ interface Image {
 }
 
 export default function Workspace() {
-	const active = usePathname().slice(1);
+	const { img: active } = useParams<{ img: string }>();
 	const [images, setImages] = useState<Image[]>([]);
 
 	useEffect(() => {
 		fetch("/api/workspace", { method: "GET" })
-			.then((resp) => resp.json())
+			.then((res) => res.json())
 			.then((data) => setImages(data));
-	}, []);
+	}, [active]);
 
 	return (
-		<ul className={`${rhmono.className} text-sm text-slate-700`}>
+		<ul id="workspace" className={`${rhmono.className} text-sm text-slate-700`}>
 			{images.map(({ name, processed }) => (
 				<Link
 					key={name}

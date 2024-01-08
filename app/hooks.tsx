@@ -30,7 +30,6 @@ export function useKeyboardNavigation() {
 	};
 
 	useEffect(() => {
-		console.log("efekt");
 		(sideItemRef.current?.querySelector(".active") as HTMLElement)?.focus();
 	});
 

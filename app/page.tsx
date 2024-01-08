@@ -1,7 +1,8 @@
 "use client";
 import { useState, useRef } from "react";
-import { useFormStatus } from "react-dom";
+import { useFormState, useFormStatus } from "react-dom";
 import { DocumentArrowUpIcon } from "@heroicons/react/24/solid";
+import { ExclamationTriangleIcon } from "@heroicons/react/24/outline";
 import { upload } from "@/app/actions";
 import Spinner from "@/app/spinner";
 
@@ -16,6 +17,7 @@ function FormContent() {
 			<span className="text-2xl">Drag and drop</span>
 			<span>or</span>
 			<label
+				id="browse"
 				htmlFor="file"
 				className="py-1 px-3 bg-slate-500 rounded-md text-lg text-slate-50 transition hover:bg-slate-600"
 			>
@@ -26,6 +28,7 @@ function FormContent() {
 }
 
 export default function Upload() {
+	const [message, formAction] = useFormState(upload, "");
 	const formRef = useRef<HTMLFormElement | null>(null);
 	const inputRef = useRef<HTMLInputElement | null>(null);
 	const [inDropZone, setInDropZone] = useState(false);
@@ -50,7 +53,7 @@ export default function Upload() {
 		<div className="h-full lg:grow p-2">
 			<form
 				ref={formRef}
-				action={upload}
+				action={formAction}
 				encType="multipart/form-data"
 				id="dropbox"
 				onDrop={handleDrop}
@@ -65,13 +68,19 @@ export default function Upload() {
 				<input
 					ref={inputRef}
 					type="file"
-					id="file"
+					id="file-selector"
 					name="file"
 					accept={process.env.ACCEPT_SUFFIX}
 					onChange={() => formRef.current?.requestSubmit()}
 					className="opacity-0"
 					multiple
 				/>
+				{message && (
+					<p className="flex font-medium">
+						<ExclamationTriangleIcon className="text-red-500 inline w-5 align-middle mr-1" />
+						{message}
+					</p>
+				)}
 			</form>
 		</div>
 	);

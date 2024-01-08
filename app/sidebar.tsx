@@ -23,11 +23,12 @@ function Heading({
 }) {
 	return (
 		<div
+			id={name + "-heading"}
 			onClick={onClick}
-			className="flex justify-between py-1 rounded-md border-solid border-2 border-sky-100 transition hover:border-sky-200 cursor-pointer text-slate-700 font-bold"
+			className="flex justify-between py-1 rounded-md border-solid border-2 border-sky-100 transition hover:border-sky-200 cursor-pointer text-slate-700"
 		>
 			<span />
-			<span className="">{name}</span>
+			<span className="font-bold capitalize">{name}</span>
 			<ChevronRightIcon
 				className={`self-center h-4 w-4 mr-1 inline transition ${
 					isCollapsed ? "" : "rotate-90"
@@ -110,13 +111,13 @@ function Output() {
 export default function Sidebar() {
 	return (
 		<div className="lg:h-full lg:w-1/5 flex flex-col">
-			<SideItem name={"Workspace"}>
+			<SideItem name={"workspace"}>
 				<Workspace />
 			</SideItem>
-			<SideItem name={"Tools"}>
+			<SideItem name={"tools"}>
 				<Tools />
 			</SideItem>
-			<SideItem name={"Output"}>
+			<SideItem name={"output"}>
 				<Output />
 			</SideItem>
 		</div>
