@@ -1,5 +1,4 @@
 "use client";
-import { useState, useEffect, use } from "react";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import { CheckIcon } from "@heroicons/react/24/solid";
@@ -12,22 +11,16 @@ interface Image {
 	processed: boolean;
 }
 
-export default function Workspace() {
-	const { img: active } = useParams<{ img: string }>();
-	const [images, setImages] = useState<Image[]>([]);
-
-	useEffect(() => {
-		fetch("/api/workspace", { method: "GET" })
-			.then((res) => res.json())
-			.then((data) => setImages(data));
-	}, [active]);
+export default function Workspace({ images }: { images: Image[] }) {
+	const params = useParams();
+	const active = params.img;
 
 	return (
 		<ul id="workspace" className={`${rhmono.className} text-sm text-slate-700`}>
 			{images.map(({ name, processed }) => (
 				<Link
 					key={name}
-					href={`/${name}`}
+					href={name === active ? "/" : `/${name}`}
 					className={name === active ? "active" : undefined}
 				>
 					<li

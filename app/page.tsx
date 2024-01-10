@@ -1,10 +1,10 @@
 "use client";
 import { useState, useRef } from "react";
 import { useFormState, useFormStatus } from "react-dom";
+import { postImages } from "@/app/actions";
+import Spinner from "@/app/ui/spinner";
 import { DocumentArrowUpIcon } from "@heroicons/react/24/solid";
 import { ExclamationTriangleIcon } from "@heroicons/react/24/outline";
-import { upload } from "@/app/actions";
-import Spinner from "@/app/spinner";
 
 function FormContent() {
 	const { pending } = useFormStatus();
@@ -18,7 +18,7 @@ function FormContent() {
 			<span>or</span>
 			<label
 				id="browse"
-				htmlFor="file"
+				htmlFor="file-selector"
 				className="py-1 px-3 bg-slate-500 rounded-md text-lg text-slate-50 transition hover:bg-slate-600"
 			>
 				Browse files
@@ -28,7 +28,7 @@ function FormContent() {
 }
 
 export default function Upload() {
-	const [message, formAction] = useFormState(upload, "");
+	const [message, formAction] = useFormState(postImages, "");
 	const formRef = useRef<HTMLFormElement | null>(null);
 	const inputRef = useRef<HTMLInputElement | null>(null);
 	const [inDropZone, setInDropZone] = useState(false);

@@ -12,14 +12,13 @@ UPLOAD_FOLDER.mkdir(parents=True, exist_ok=True)
 PUBLIC_FOLDER.mkdir(parents=True, exist_ok=True)
 
 app = Flask(__name__)
-app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
 
 
 def allowed_suffix(filename: str):
     return filename.suffix.casefold() in ALLOWED_SUFFIXES
 
 
-@app.route("/api/workspace", methods=["GET"])
+@app.route("/api/images", methods=["GET"])
 def get_workspace():
     files = [
         {"name": f.name, "processed": False}
@@ -30,7 +29,7 @@ def get_workspace():
     return files, 200
 
 
-@app.route("/api/upload", methods=["POST", "PUT"])
+@app.route("/api/images", methods=["POST", "PUT"])
 def upload():
     files = request.files.getlist("file")
 
