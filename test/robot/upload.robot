@@ -2,8 +2,8 @@
 Resource            resource.robot
 
 Suite Setup         Open And Configure Browser
-Suite Teardown      Close Browser
-Test Teardown       Remove Test Images
+Suite Teardown      Final Teardown
+Test Teardown       Reload Page
 
 
 *** Test Cases ***
@@ -34,11 +34,11 @@ User can upload single tif
     [Arguments]    ${TIF}
     Choose File    file-selector    ${INPUT_DIR}/${TIF}
     Element Should Contain    workspace    ${TIF}
-    Click Element    css:#workspace li
+    Click Element    css:#workspace li:last-of-type
     Sleep    0.5s
-    Element Should Contain    canvas    css:img
+    Page Should Contain Image    css:img
     Page Should Not Contain    Failed to load image
-    Click Element    css:#workspace li
+    Click Element    css:#workspace li:last-of-type
 
 User cannot upload non-tif files
     [Arguments]    ${FILE}

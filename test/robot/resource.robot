@@ -18,3 +18,7 @@ Open And Configure Browser
 
 Remove Test Images
     Remove File    %{UPLOAD_FOLDER}/test_*
+
+Final Teardown
+    Close Browser
+    Remove Test Images
