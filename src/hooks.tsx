@@ -1,7 +1,7 @@
 import { useRef, useEffect } from "react";
 
 export function useKeyboardNavigation() {
-	const sideItemRef = useRef<HTMLDivElement>(null);
+	const elementRef = useRef<HTMLElement>(null);
 
 	const clickAndFocus = (e: Element | undefined | null) => {
 		const htmlE = e as HTMLElement;
@@ -10,7 +10,7 @@ export function useKeyboardNavigation() {
 	};
 
 	const handleKeyboardNavigation = (
-		e: React.KeyboardEvent<HTMLDivElement> & { currentTarget: HTMLDivElement }
+		e: React.KeyboardEvent<HTMLElement> & { currentTarget: HTMLElement }
 	) => {
 		e.preventDefault();
 		const current = e.currentTarget.querySelector(".active");
@@ -30,8 +30,8 @@ export function useKeyboardNavigation() {
 	};
 
 	useEffect(() => {
-		(sideItemRef.current?.querySelector(".active") as HTMLElement)?.focus();
+		(elementRef.current?.querySelector(".active") as HTMLElement)?.focus();
 	});
 
-	return [sideItemRef, handleKeyboardNavigation];
+	return [elementRef, handleKeyboardNavigation];
 }

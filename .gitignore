@@ -135,3 +135,6 @@ __pycache__/
 
 # user uploads
 upload/
+
+# robot output folder
+test/robot/output/

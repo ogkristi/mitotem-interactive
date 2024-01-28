@@ -1,6 +1,5 @@
-"use client";
 import { useState } from "react";
-import { useKeyboardNavigation } from "@/app/hooks";
+import { useKeyboardNavigation } from "../hooks";
 import { ChevronRightIcon } from "@heroicons/react/24/solid";
 
 function Heading({
@@ -16,10 +15,9 @@ function Heading({
 		<div
 			id={name + "-heading"}
 			onClick={onClick}
-			className="flex justify-between py-1 rounded-md border-solid border-2 border-sky-100 transition hover:border-sky-200 cursor-pointer text-slate-700"
+			className="flex justify-between py-2 transition hover:text-sky-500 cursor-pointer"
 		>
-			<span />
-			<span className="font-bold capitalize">{name}</span>
+			<span className="capitalize ml-6">{name}</span>
 			<ChevronRightIcon
 				className={`self-center h-4 w-4 mr-1 inline transition ${
 					isCollapsed ? "" : "rotate-90"
@@ -40,17 +38,15 @@ function SideItem({
 	const [isCollapsed, setCollapsed] = useState<boolean>(true);
 
 	return (
-		<div
-			className="mt-px"
-			ref={sideItemRef}
-			onKeyDown={handleKeyboardNavigation}
-		>
+		<div ref={sideItemRef} onKeyDown={handleKeyboardNavigation}>
 			<Heading
 				name={name}
 				isCollapsed={isCollapsed}
 				onClick={() => setCollapsed(!isCollapsed)}
 			/>
-			<div className={isCollapsed ? "hidden" : ""}>{children}</div>
+			<div className={`font-normal ${isCollapsed ? "hidden" : ""}`}>
+				{children}
+			</div>
 		</div>
 	);
 }
@@ -61,7 +57,7 @@ export default function Sidebar(props: {
 	output: React.ReactElement;
 }) {
 	return (
-		<div className="lg:h-full lg:w-1/5 flex flex-col">
+		<div className="lg:h-full lg:w-1/5 lg:border-r lg:border-slate-200 flex flex-col text-sm">
 			<SideItem name={"workspace"}>{props.workspace}</SideItem>
 			<SideItem name={"tools"}>{props.tools}</SideItem>
 			<SideItem name={"output"}>{props.output}</SideItem>
